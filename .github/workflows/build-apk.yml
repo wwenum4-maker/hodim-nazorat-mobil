@@ -1,0 +1,66 @@
+name: APK yasash
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodni olish
+        uses: actions/checkout@v4
+
+      - name: Java o'rnatish
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Flutter o'rnatish
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Maxsus kodni saqlash
+        run: |
+          mkdir -p /tmp/keep
+          cp pubspec.yaml /tmp/keep/pubspec.yaml
+          cp -r lib /tmp/keep/lib
+
+      - name: Android platformasini yaratish
+        run: flutter create --org uz.hodimnazorat --project-name hodim_nazorat --platforms=android .
+
+      - name: Maxsus kodni qaytarish
+        run: |
+          cp /tmp/keep/pubspec.yaml pubspec.yaml
+          rm -rf lib
+          cp -r /tmp/keep/lib lib
+
+      - name: Ruxsatlarni qo'shish (AndroidManifest)
+        run: python3 tool/patch_manifest.py
+
+      - name: Bog'liqliklar
+        run: flutter pub get
+
+      - name: APK yasash (release)
+        run: flutter build apk --release
+
+      - name: APK'ni saqlash (Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: hodim-nazorat-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
+
+      - name: Release sifatida chiqarish
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: "Hodim Nazorati APK (oxirgi)"
+          files: build/app/outputs/flutter-apk/app-release.apk
