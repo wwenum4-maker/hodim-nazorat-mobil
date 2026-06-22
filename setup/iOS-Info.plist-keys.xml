@@ -1,0 +1,26 @@
+<!--
+  iOS SOZLAMALARI
+  Quyidagilarni ios/Runner/Info.plist faylida <dict> ... </dict> ichiga qo'shing.
+  Shuningdek Xcode -> Runner -> Signing & Capabilities -> + Capability ->
+  "Background Modes" qo'shib, "Location updates" ni belgilang.
+-->
+
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Ish vaqtida davomat uchun joylashuvingiz kerak.</string>
+
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>Fonda ham davomatni belgilash uchun joylashuv kerak.</string>
+
+<key>NSLocationAlwaysUsageDescription</key>
+<string>Fonda ham davomatni belgilash uchun joylashuv kerak.</string>
+
+<key>NSCameraUsageDescription</key>
+<string>QR kodni skaner qilish va uzr rasmini yuborish uchun kamera kerak.</string>
+
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Uzr rasmini galereyadan tanlash uchun kerak.</string>
+
+<key>UIBackgroundModes</key>
+<array>
+  <string>location</string>
+</array>

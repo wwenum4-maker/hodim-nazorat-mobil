@@ -1,0 +1,22 @@
+name: hodim_nazorat
+description: Hodim Nazorati — xodim mobil ilovasi (davomat + fonda GPS)
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.2.2                # API so'rovlari
+  shared_preferences: ^2.3.2 # token va server manzilini saqlash
+  geolocator: ^13.0.1        # GPS + fonda kuzatuv (foreground service)
+  mobile_scanner: ^5.2.3     # QR skaner
+  image_picker: ^1.1.2       # uzr uchun rasm
+
+dev_dependencies:
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
